@@ -1,9 +1,9 @@
 import { Link, useLocation } from 'react-router-dom';
 
-const MoviesList = () => {
+const MoviesList = ({ movies = [] }) => {
   const location = useLocation();
   return (
-    <ul className={css.ul}>
+    <ul>
       {movies.map(
         ({ id, title }) =>
           title && (
