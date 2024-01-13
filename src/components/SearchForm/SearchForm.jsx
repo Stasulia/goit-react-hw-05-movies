@@ -1,17 +1,18 @@
 import { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
-const SearchForm = ({ onSubmit }) => {
+const SearchForm = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [searchParams, setSearchParams] = useSearchParams();
 
   const handleOnSubmit = event => {
     event.preventDefault();
+    // handleSubmit(searchQuery);
     setSearchParams({ search: searchQuery });
-    onSubmit(searchQuery);
+    setSearchQuery('');
   };
 
-  const handleOnChange = ({ target: { value } }) => {
+  const handleChange = ({ target: { value } }) => {
     setSearchQuery(value);
   };
 
@@ -28,7 +29,7 @@ const SearchForm = ({ onSubmit }) => {
           type="text"
           id="exampleInputSearch"
           value={searchQuery}
-          onChange={handleOnChange}
+          onChange={handleChange}
         />
       </div>
       <button type="submit">Search</button>

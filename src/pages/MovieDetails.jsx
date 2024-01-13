@@ -1,8 +1,14 @@
 // import { GoBackBtn } from 'components/GoBackBtn/GoBackBtn';
 import { Loader } from 'components/Loader/Loader';
 import { getMoviesDetails } from 'components/Service/MovieApi';
-import React, { useEffect, useState } from 'react';
-import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
+import React, { Suspense, useEffect, useRef, useState } from 'react';
+import {
+  Link,
+  Outlet,
+  useLocation,
+  useNavigate,
+  useParams,
+} from 'react-router-dom';
 // import { Circles } from 'react-loader-spinner';
 
 const MovieDetails = () => {
@@ -10,8 +16,9 @@ const MovieDetails = () => {
 
   const { movieId } = useParams();
   const location = useLocation();
-  //   const backLinkRef = useRef(location.state?.from ?? '/');
   const navigate = useNavigate();
+  // const linkGoBack = useRef(location.state?.from ?? '/');
+  const linkGoBack = useRef(location.state);
 
   useEffect(() => {
     const fetchMovieDetails = async () => {
@@ -33,12 +40,12 @@ const MovieDetails = () => {
   const genres = movieDetails.genres.map(genre => genre.name).join(',');
 
   const handleClick = () => {
-    navigate(location.state?.from ?? `/movies`);
+    navigate(linkGoBack.current ?? `/`);
   };
   return (
     <>
-      <button onClick={handleClick}>go back</button>
-      {/* <GoBackBtn path={backLinkRef.current} /> */}
+      <button onClick={handleClick}>GO BACK</button>
+      {/* <GoBackBtn path={linkGoBack.current} /> */}
       <h1>{movieDetails.title}</h1>
       <p>Overview: {movieDetails.overview}</p>
       <p>Genres: {genres} </p> {}
@@ -47,15 +54,18 @@ const MovieDetails = () => {
         alt="movieDetails.title"
         // alt=""
       />
-      <p>Additional information</p>
+      <p>Additional information:</p>
       <ul>
         <li>
           <Link to="cast">Cast</Link>
         </li>
-        {/* <li>
+        <li>
           <Link to="reviews">Reviews</Link>
-        </li> */}
+        </li>
       </ul>
+      <Suspense fallback={<div>Loading...</div>}>
+        <Outlet />
+      </Suspense>
     </>
   );
 };

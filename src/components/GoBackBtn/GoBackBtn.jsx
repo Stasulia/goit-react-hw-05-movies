@@ -6,5 +6,8 @@ export const GoBackBtn = ({ path }) => {
     <Link to={path} className={css.back}>
       Go back{' '}
     </Link>
+    // <button className={css.goBackBtn} type="button" onClick={onClick}>
+    //   Go Back
+    // </button>
   );
 };
