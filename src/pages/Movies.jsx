@@ -3,18 +3,13 @@ import MoviesList from 'components/MoviesList/MoviesList';
 import SearchForm from 'components/SearchForm/SearchForm';
 import { getMovies } from 'components/Service/MovieApi';
 import { useCallback, useEffect, useState } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 
 const Movies = () => {
   const [searchResult, setSearchResult] = useState([]);
   const [page] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const [searchParams] = useSearchParams();
-
-  // const handleSearch = async query => {
-  //   const results = await getMovies(query);
-  //   setSearchResult(results);
-  // };
 
   const getFindMovie = useCallback(
     async query => {
@@ -40,15 +35,8 @@ const Movies = () => {
     <>
       {isLoading && <Loader />}
       <SearchForm />
-      {/* <SearchForm onSubmit={handleSearch} /> */}
       <div>
         <MoviesList movies={searchResult} />
-        {searchResult.length !== 0 &&
-          searchResult.map(movie => (
-            <li key={movie.id}>
-              <Link to={`/movies/${movie.id}`}>{movie.title}</Link>
-            </li>
-          ))}
       </div>
     </>
   );

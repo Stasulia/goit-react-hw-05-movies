@@ -7,8 +7,8 @@ const Movie = ({ movie }) => {
       to={movie.id.toString()}
       // state={location}
     >
-      <div className="container">
-        <div className="card p-2">
+      <div >
+        <div>
           <p>{movie.title}</p>
           <p> {movie.price} $</p>
         </div>

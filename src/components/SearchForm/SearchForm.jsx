@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
+import css from './SearchForm.module.css';
 
 const SearchForm = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -16,14 +17,20 @@ const SearchForm = () => {
     setSearchQuery(value);
   };
 
+  // useEffect(() => {
+  //   !searchQuery && setSearchQuery(searchParams.get('query'));
+  // }, [searchParams, searchQuery]);
   useEffect(() => {
-    !searchQuery && setSearchQuery(searchParams.get('search'));
-  }, [searchParams, searchQuery]);
+    const query = searchParams.get('query');
+    if (!query) {
+      return;
+    }
+    setSearchQuery(query);
+  }, [searchParams]);
 
   return (
-    <form onSubmit={handleOnSubmit}>
+    <form className={css.searchForm} onSubmit={handleOnSubmit}>
       <div>
-        <label htmlFor="">Title</label>
         <input
           name="search"
           type="text"

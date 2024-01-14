@@ -1,14 +1,8 @@
-// import { GoBackBtn } from 'components/GoBackBtn/GoBackBtn';
+import { GoBackBtn } from 'components/GoBackBtn/GoBackBtn';
 import { Loader } from 'components/Loader/Loader';
 import { getMoviesDetails } from 'components/Service/MovieApi';
 import React, { Suspense, useEffect, useRef, useState } from 'react';
-import {
-  Link,
-  Outlet,
-  useLocation,
-  useNavigate,
-  useParams,
-} from 'react-router-dom';
+import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
 // import { Circles } from 'react-loader-spinner';
 
 const MovieDetails = () => {
@@ -16,7 +10,7 @@ const MovieDetails = () => {
 
   const { movieId } = useParams();
   const location = useLocation();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const linkGoBack = useRef(location.state?.from ?? '/');
   // const linkGoBack = useRef(location.state);
 
@@ -39,22 +33,20 @@ const MovieDetails = () => {
 
   const genres = movieDetails.genres.map(genre => genre.name).join(',');
 
-  const handleClick = () => {
-    navigate(linkGoBack.current ?? `/`);
-  };
+  // const handleClick = () => {
+  //   navigate(linkGoBack.current ?? `/`);
+  // };
   return (
     <>
-      <button onClick={handleClick}>GO BACK</button>
-      {/* <GoBackBtn path={linkGoBack.current} /> */}
+      {/* <button onClick={handleClick}>GO BACK</button> */}
+      <GoBackBtn path={linkGoBack.current} />
       <wrapper>
         <img
           src={`https://image.tmdb.org/t/p/w500/${movieDetails.poster_path}`}
-          alt="movieDetails.title"
-          // alt=""
+          alt={movieDetails.title}
         />
         <div>
           <h1>{movieDetails.title}</h1>
-          {/* <p>Overview: {movieDetails.overview}</p> */}
           <p>Overview:</p>
           <h2>{movieDetails.overview}</h2>
           <p>Genres:</p>
