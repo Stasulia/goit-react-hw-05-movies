@@ -3,6 +3,7 @@ import axios from 'axios';
 
 import { API_KEY, BASE_URL } from 'components/Service/MovieApi';
 import { Link } from 'react-router-dom';
+// import MoviesList from 'components/MoviesList/MoviesList';
 
 const Home = () => {
   const [trendingMovies, setTrendingMovies] = useState([]);
@@ -23,7 +24,6 @@ const Home = () => {
   }, []);
   return (
     <div>
-      <h1>Home</h1>
       <p>Trending today:</p>
       <ul>
         {trendingMovies.map(movie => (
@@ -31,6 +31,7 @@ const Home = () => {
             <Link to={`/movies/${movie.id}`}>{movie.title}</Link>
           </li>
         ))}
+        {/* <MoviesList /> */}
       </ul>
     </div>
   );

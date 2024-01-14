@@ -1,4 +1,5 @@
 import { Loader } from 'components/Loader/Loader';
+import MoviesList from 'components/MoviesList/MoviesList';
 import SearchForm from 'components/SearchForm/SearchForm';
 import { getMovies } from 'components/Service/MovieApi';
 import { useCallback, useEffect, useState } from 'react';
@@ -41,6 +42,7 @@ const Movies = () => {
       <SearchForm />
       {/* <SearchForm onSubmit={handleSearch} /> */}
       <div>
+        <MoviesList movies={searchResult} />
         {searchResult.length !== 0 &&
           searchResult.map(movie => (
             <li key={movie.id}>

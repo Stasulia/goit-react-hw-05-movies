@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getMovieCredits } from 'components/Service/MovieApi';
+import css from './Cast.module.css';
 
 import defaultPicture from './default_actor.jpg';
 import { Loader } from 'components/Loader/Loader';
@@ -39,29 +40,40 @@ const Cast = () => {
   }, [movieId]);
 
   return (
-    <div>
+    <div className={css.castList}>
       {isLoading && <Loader />}
       {status === 'rejected' && <p>{error}</p>}
 
       {casts.map(cast => {
         if (cast.profile_path) {
           return (
-            <li key={cast.id}>
-              <img
-                src={`https://image.tmdb.org/t/p/w500${cast.profile_path}`}
-                alt={cast.name}
-              />
-              <p>Name: {cast.name}</p>
-              <p>Character: {cast.character}</p>
-            </li>
+            <div className={css.castList}>
+              <ol className={css.castItem} key={cast.id}>
+                <img
+                  className={css.img}
+                  src={`https://image.tmdb.org/t/p/w500${cast.profile_path}`}
+                  alt={cast.name}
+                />
+                <p>Name: {cast.name}</p>
+
+                <h2>Character: {cast.character}</h2>
+              </ol>
+            </div>
           );
         } else {
           return (
-            <li key={cast.id}>
-              <img src={defaultPicture} alt={cast.name} height={225} />
-              <p>Name: {cast.name}</p>
-              <p>Character: {cast.character}</p>
-            </li>
+            <div className={css.castList}>
+              <ol className={css.castItem} key={cast.id}>
+                <img
+                  className={css.img}
+                  src={defaultPicture}
+                  alt={cast.name}
+                  height={225}
+                />
+                <p>Name: {cast.name}</p>
+                <h2>Character: {cast.character}</h2>
+              </ol>
+            </div>
           );
         }
       })}

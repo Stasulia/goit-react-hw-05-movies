@@ -17,8 +17,8 @@ const MovieDetails = () => {
   const { movieId } = useParams();
   const location = useLocation();
   const navigate = useNavigate();
-  // const linkGoBack = useRef(location.state?.from ?? '/');
-  const linkGoBack = useRef(location.state);
+  const linkGoBack = useRef(location.state?.from ?? '/');
+  // const linkGoBack = useRef(location.state);
 
   useEffect(() => {
     const fetchMovieDetails = async () => {
@@ -46,23 +46,27 @@ const MovieDetails = () => {
     <>
       <button onClick={handleClick}>GO BACK</button>
       {/* <GoBackBtn path={linkGoBack.current} /> */}
-      <h1>{movieDetails.title}</h1>
-      <p>Overview: {movieDetails.overview}</p>
-      <p>Genres: {genres} </p> {}
-      <img
-        src={`https://image.tmdb.org/t/p/w500/${movieDetails.poster_path}`}
-        alt="movieDetails.title"
-        // alt=""
-      />
+      <wrapper>
+        <img
+          src={`https://image.tmdb.org/t/p/w500/${movieDetails.poster_path}`}
+          alt="movieDetails.title"
+          // alt=""
+        />
+        <div>
+          <h1>{movieDetails.title}</h1>
+          {/* <p>Overview: {movieDetails.overview}</p> */}
+          <p>Overview:</p>
+          <h2>{movieDetails.overview}</h2>
+          <p>Genres:</p>
+          <h2>{genres} </h2>
+        </div>
+      </wrapper>
       <p>Additional information:</p>
-      <ul>
-        <li>
-          <Link to="cast">Cast</Link>
-        </li>
-        <li>
-          <Link to="reviews">Reviews</Link>
-        </li>
-      </ul>
+      <wrapper>
+        <Link to="cast">Cast</Link>
+
+        <Link to="reviews">Reviews</Link>
+      </wrapper>
       <Suspense fallback={<div>Loading...</div>}>
         <Outlet />
       </Suspense>

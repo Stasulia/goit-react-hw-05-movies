@@ -1,0 +1,15 @@
+.navLink {
+  color: rgb(14, 79, 82);
+  font-size: 20px;
+  font-weight: 600;
+  /* text-transform: uppercase; */
+
+  &:hover,
+  &:focus {
+    color: #519ecf;
+  }
+
+  &.active {
+    color: #519ecf;
+  }
+}
